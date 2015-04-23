@@ -21,7 +21,6 @@ int lastAcXCC = 0;
 int lastAcYCC = 0;
 int lastAcZCC = 0;
 
-
 NewPing sonar(12,11,30);  // (Trig pin, Echo ping, Max distance in cm)
 const int MPU=0x68;  // I2C address of the MPU-6050
 int16_t AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
@@ -37,7 +36,6 @@ void setup(){
   pinMode(10,INPUT); // AcX Switch
   pinMode(9,INPUT); //AcY Switch
   pinMode(8,INPUT); //AcZ Switch
-  //Serial.begin(9600);
 }
 
 void loop(){
@@ -55,15 +53,7 @@ void loop(){
   GyX=Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
   GyY=Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
   GyZ=Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-  //Serial.print("AcX = "); Serial.print(AcX);
-  //Serial.print(" | AcY = "); Serial.print(AcY);
-  //Serial.print(" | AcZ = "); Serial.print(AcZ);
-  //Serial.print(" | Tmp = "); Serial.print(Tmp/340.00+36.53);  //equation for temperature in degrees C from datasheet
-  //Serial.print(" | GyX = "); Serial.print(GyX);
-  //Serial.print(" | GyY = "); Serial.print(GyY);
-  //Serial.print(" | GyZ = "); Serial.println(GyZ);
-  //delay(1000);
-  
+
   //GYROSCOPE/ACCELEROMETER
   
   //X-AXIS  
@@ -120,17 +110,4 @@ void loop(){
     MIDI.sendControlChange(107,ccUltra,1);
     lastUltraCC = ccUltra;
   }
-  
- // if (ccUltra == 0) {
-    
- // MIDI.sendControlChange(107,lastUltraCC,1);
- // }
-  
-  //POTENTIOMETER
-  
-  //PotValue = analogRead(0);
-  //ccPot = PotValue/8;
-  //MIDI.sendControlChange(85,ccPot,1);
-
-  
 }
